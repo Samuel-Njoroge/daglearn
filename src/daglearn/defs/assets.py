@@ -2,8 +2,8 @@ import pandas as pd
 import dagster as dg
 
 
-RAW_FILE = "src/daglearn/defs/data/raw.csv"
-PROCESSED_FILE = "src/daglearn/defs/data/processed.csv"
+RAW_FILE = "src/daglearn/defs/data/raw/orders.csv"
+PROCESSED_FILE = "src/daglearn/defs/data/transformed/orders_summary.csv"
 
 
 @dg.asset
