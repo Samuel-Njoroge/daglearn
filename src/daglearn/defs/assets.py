@@ -2,6 +2,7 @@ from dagster_duckdb import DuckDBResource
 
 import pandas as pd
 import dagster as dg
+import datetime
 
 
 RAW_FILE = "src/daglearn/defs/data/raw/orders.csv"
@@ -59,4 +60,15 @@ def customers(duckdb: DuckDBResource):
         )
 
 
+# Partitioning
+daily_partitions = dg.DailyPartitionsDefinition(start_date="2026-01-14")
 
+# Partitioned asset
+@dg.asset(partitions_def=daily_partitions)
+def daily_sales(context: dg.AssetCheckExecutionContext) -> None:
+    date = context.partition_key
+
+    df = pd.read_csv(RAW_FILE)
+    filename = f"src/daglearn/defs/data/raw/sales_{date}.csv"
+
+    context.log.info(f"Daily sales data written to {filename}")
