@@ -2,6 +2,7 @@
 
 ## Getting started
 
+# 
 ### Installing dependencies
 
 **Option 1: uv**
